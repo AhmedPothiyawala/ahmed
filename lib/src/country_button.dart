@@ -40,44 +40,53 @@ class CountryButton extends StatelessWidget {
         CountrySelectorLocalizationEn();
     final countryDialCode = '+ ${countryLocalization.countryDialCode(isoCode)}';
 
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: padding,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            if (showIsoCode) ...[
-              Text(
-                isoCode.name,
-                style: textStyle.copyWith(
-                  color: enabled ? null : Theme.of(context).disabledColor,
-                ),
-              ),
-              const SizedBox(width: 8),
-            ],
-            if (showFlag) ...[
-              ExcludeSemantics(
-                child: CircleFlag(
-                  isoCode.name,
-                  size: flagSize,
-                ),
-              ),
-              const SizedBox(width: 8),
-            ],
-            if (showDialCode) ...[
-              Text(
-                countryDialCode,
-                style: textStyle.copyWith(
-                  color: enabled ? null : Theme.of(context).disabledColor,
-                ),
-              ),
-            ],
-            if (showDropdownIcon)
-              const ExcludeSemantics(child: Icon(Icons.arrow_drop_down)),
-          ],
-        ),
-      ),
-    );
+    return  InkWell(
+  onTap: onTap,
+  child: Padding(
+    padding: padding,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (showIsoCode) ...[
+          Text(
+            isoCode.name,
+            style: textStyle.copyWith(
+              color: enabled ? null : Theme.of(context).disabledColor,
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+        if (showFlag) ...[
+          ExcludeSemantics(
+            child: CountryFlag.fromCountryCode(
+              isoCode.name,
+              height: MediaQuery.of(context).size.height * 0.0192,
+              width: MediaQuery.of(context).size.width * 0.077,
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+        if (showDialCode) ...[
+          Text(
+            countryDialCode,
+            style: textStyle.copyWith(
+              color: enabled ? null : Theme.of(context).disabledColor,
+            ),
+          ),
+        ],
+        if (showDropdownIcon)
+          const ExcludeSemantics(child: Icon(Icons.arrow_drop_down ,color: Color(0xffA3A3A3),),),
+        if (showDropdownIcon)...[
+          Container(
+            width: 1,
+            height: MediaQuery.of(context).size.height * 0.024,
+            color: const Color(0xffA3A3A3),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ],
+    ),
+  ),
+);
   }
 }
